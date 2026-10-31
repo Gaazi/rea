@@ -1,34 +1,32 @@
 # Project State
 
-Updated: 2026-10-31 10:15
+Updated: 2026-10-31 11:05
 
 ## Done
 
-- Reviewed the five latest `dev`/`main` commits at `5d6029ea6` (Apple bundle
-  anatomy, launchd domains, mobile component/unavailable/runtime-hint fixes).
-  Upstream required CI checks all passed on that commit (38 check runs).
-- Installed the locked toolchain (`npm ci`, 540 packages) and verified the
-  local copy: `tsc --noEmit` passes; 80 of 82 focused application-projection
-  tests pass.
-- Found one real defect in the snapshot: Android counts a known ZIP symlink as
-  an unavailable component and downgrades `coverage.status` to `partial`
-  (reproduced with a symlink APK). Harmony had the same defect; upstream fixed
-  Harmony in `553f19590` (#7886, issue #7545) but Android still does it.
+- `dev` was rebased onto upstream `main` (`ec107022f`, 2026-10-31) and carries
+  only two local commits: the review notes and the shared-agent sync pointers.
+- Reviewed the previous snapshot (`5d6029ea6`): all required upstream CI checks
+  passed there; `tsc --noEmit` and 80/82 focused tests passed locally.
+- Found and reproduced one defect in that snapshot: Android lists a known ZIP
+  symlink in `unavailable_components` and reports `coverage.status: "partial"`.
+  Harmony was fixed upstream in `553f19590` (#7886); Android was not.
+- Built the shareable Windows application in a separate repository,
+  `Gaazi/rea-reverse-engineer`: `rea.exe` launcher, embedded Node.js runtime,
+  published `rea-agents` 6.8.0 with production dependencies, SHA-256 manifest
+  and `rea.exe verify`. Smoke test, tamper detection and the minified build pass.
 
 ## Pending
 
-- Local clone is 2,675 commits behind `origin/main` (local HEAD 2026-10-17,
-  upstream 2026-10-31); no fetch since the clone.
-- Two focused tests are environment-blocked on this host: a boundary test needs
-  Windows symlink privilege (EPERM) and a CLI/MCP acceptance test needs `dist/`
-  (not built).
-- `native/windows/build/manifest.json` is absent, so the `test:focused` gate
-  refuses to run; direct `vitest run` works.
-- Uncommitted agent-sync files (`.agents/global-sync.json`, `CLAUDE.md`,
-  `GEMINI.md`, `.clinerules`, `.roo/`, `.kilocode/`, `copilot-instructions.md`)
-  plus the `AGENTS.md` pointer and `.trash/` ignore rule are not committed.
+- The Android symlink asymmetry is still unfixed here; it needs a fork because
+  this clone has no push access to `morluto/rea`.
+- `native/windows/build/manifest.json` is absent, so `npm run test:focused`
+  refuses to run on this host; direct `vitest run` works.
+- Two focused tests remain host-blocked: Windows symlink `EPERM` and a missing
+  `dist/` for the CLI/MCP acceptance lane.
 
 ## Next Step
 
-- Decide whether to fetch/update to upstream `main`, and whether to fix the
-  Android unavailable-symlink asymmetry with a regression test.
+- Stop changing REA source here. Further application work happens in
+  `Gaazi/rea-reverse-engineer`; decide separately whether to propose the
+  Android fix upstream from a fork.

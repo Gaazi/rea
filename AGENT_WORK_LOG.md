@@ -14,3 +14,15 @@
   `coverage.status: "partial"`. Harmony was fixed upstream in `553f19590`
   (#7886) for issue #7545; Android was not included.
 - Commits: none yet.
+
+## 2026-10-31 11:05 - Shareable Windows app (OpenCode, DeepSeek V4.1 Flash Free)
+
+- Scope: rebased dev onto upstream main (ec107022f), then moved application work
+  out of this repository per the user's instruction.
+- New repository: Gaazi/rea-reverse-engineer (private). Builds a self-contained
+  Windows folder and zip from the published rea-agents 6.8.0 package.
+- Checks run there: npm run build (smoke test passed), rea.exe verify (9078 files
+  match), deliberate VERSION.txt edit detected and restored, npm run
+  build:minified (smoke test passed), rea.exe capabilities (works).
+- REA source unchanged in this repository; dev keeps the two local commits and
+  cannot be pushed (403 to morluto/rea).
