@@ -2,8 +2,9 @@
 
 Read `~/.agents/global-agent-rules/AGENTS.md` before project rules.
 Read `PROJECT_STATE.md` first. Update it after each completed task.
+This root `AGENTS.md` is the project master agent: the only project rule file.
 On first visit or a changed master, run `python ~/.agents/manage_agents.py project sync --repo <project-root>`.
-Shared master SHA256: `5cd3c5c5dbd1a96dbdd666859f8f93bfb6edf53a9d88ad5e0ede89903a8a2fee`.
+Shared master SHA256: `c256d235bba5f3b6c6a26c658cce72365885392a5ba7c7c3c58c4259baab6b52`.
 <!-- shared-agent:end -->
 
 # Repository Guidelines
