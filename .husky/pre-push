@@ -1,1 +1,4 @@
+if [ -x "$HOME/.agents/hooks/pre-push" ]; then
+  "$HOME/.agents/hooks/pre-push"
+fi
 npm run check:fast
